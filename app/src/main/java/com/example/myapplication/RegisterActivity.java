@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText email_edt, password_edt;
+    EditText email_edt, password_edt, passConf_edt;
     Button btn_regis;
     FirebaseAuth mAuth;
 
@@ -43,9 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
         btn_regis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, password;
+                String email, password, passConf;
                 email = String.valueOf(email_edt.getText());
                 password = String.valueOf(password_edt.getText());
+                passConf = String.valueOf(passConf_edt.getText());
 
 
                 if (TextUtils.isEmpty(email)){
@@ -54,6 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 if (TextUtils.isEmpty(password)){
                     Toast.makeText(RegisterActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!password.equals(passConf)){
+                    Toast.makeText(RegisterActivity.this, "Please Enter valid password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -84,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email_edt = findViewById(R.id.email);
         password_edt = findViewById(R.id.password);
+        passConf_edt = findViewById(R.id.password_conf);
         btn_regis = findViewById(R.id.btn_regis);
         to_login = findViewById(R.id.to_login);
     }
